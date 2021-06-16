@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!-->setting row <-->
+    <RelativeLayout
+        android:id="@+id/recycler_wallet_row_click"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:background="#283349">
+
+        <ImageView
+            android:id="@+id/a1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+
+            android:src="@drawable/btc"
+            android:transitionName="image" />
+
+        <LinearLayout
+            android:id="@+id/b1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@+id/a1"
+            android:gravity="center|start"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:text="BTC"
+                    android:id="@+id/tv_coin_short_name"
+                    android:textColor="#ffffff"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bitcoin"
+                android:textColor="#B4B5B5"
+                android:id="@+id/tv_coin_full_name"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/d1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_button"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                app:sb_background="#283349"
+                app:sb_button_color="#FFFFFF"
+                app:sb_show_indicator="false" />
+
+            <ImageButton
+                android:id="@+id/btn_re_arrange"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ham" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

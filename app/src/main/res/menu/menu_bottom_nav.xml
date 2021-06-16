@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_market"
+        android:icon="@drawable/market"
+        android:title="Market" />
+
+    <item
+        android:id="@+id/navigation_exchange"
+        android:icon="@drawable/ex"
+        android:title="Exchange" />
+    <item
+        android:id="@+id/navigation_discover"
+        android:icon="@drawable/discover"
+        android:title="Discover" />
+
+    <item
+        android:id="@+id/navigation_wallet"
+        android:icon="@drawable/wallet"
+        android:title="Wallet" />
+</menu>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#202B3F"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ActivityPackage.LoginActivity"
+    tools:showIn="@layout/activity_login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <!-->logo <-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:alpha="0.5"
+
+                android:scaleType="centerCrop"
+                />
+
+
+            <!-->Some tag line here text <-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Global Leader Of Blockchain\nTechnology"
+                android:textColor="#F9F9F9"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-->user name input field <-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/login_edittext_style"
+                android:fontFamily="sans-serif-condensed"
+                android:hint="username"
+                android:paddingLeft="10dp"
+                android:textColorHint="#CECECE" />
+
+            <!-->password input field <-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_edittext_style"
+                android:fontFamily="sans-serif-condensed"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:textColorHint="#CECECE" />
+            <!-->forgot password text<-->
+            <TextView
+                android:id="@+id/tv_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:gravity="end"
+                android:text="Forgot Password?"
+                android:textColor="#1297FA" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal">
+                <!-->sign in button <-->
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/btn_bg_sign"
+                    android:text="Sign In"
+                    android:textColor="#ffffff" />
+                <!-->signup button <-->
+                <Button
+                    android:id="@+id/btn_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/btn_bg"
+                    android:text="Sign Up"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+
+                android:gravity="center"
+                android:orientation="horizontal">
+                <!-->or login with text<-->
+                <TextView
+                    android:id="@+id/tv_not_yet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="Or Login With"
+                    android:textColor="#FAF9F8" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+                <!-->facebook button<-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+
+                    android:background="@drawable/btn_bg"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/face" />
+                <!-->twitter button<-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/btn_bg"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/twitter" />
+                <!-->pinterst button<-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+
+                    android:background="@drawable/btn_bg"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pin" />
+                <!-->google plus button<-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_bg"
+
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/google" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1F2A3E">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-->event text<-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Events"
+            android:textColor="#FEFEFE"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+        <!-->recycler event list horizontal<-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_discover_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        <!-->is ethereum apple<-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Is Ethereum Apple?Or Is It IBM?"
+            android:textColor="#FBFAFA"
+            android:textSize="15dp" />
+        <!-->trend text<-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Trend"
+            android:textColor="#FEFEFE"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+        <!-->trend list horizontal<-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_discover_trend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        <!-->news text<-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="News"
+            android:textColor="#FEFEFE"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+        <!-->news list vertical<-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_discover_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:nestedScrollingEnabled="false"/>
+    </LinearLayout>
+</ScrollView>

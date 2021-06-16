@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#202B3F"
+    android:orientation="vertical"
+    tools:context="com.cryptotrade.ActivityPackage.CoinDetailActivity"
+    tools:showIn="@layout/activity_coin_detail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="20dp"
+            android:background="#1F273A"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:transitionName="image"
+            android:padding="5dp">
+<!-->coin image view<-->
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/btc" />
+            <!-->coin name<-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="Bitcoin"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+            <!-->close button<-->
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="15dp"
+                android:id="@+id/btn_cross"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cross"
+                android:tint="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-->currency amount text<-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:text="12435473.98"
+                android:textColor="#ffffff"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+            <!-->currency name<-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingStart="5dp"
+
+                android:paddingTop="5dp"
+                android:text="USD"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+            <!-->arrow up<-->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="15dp"
+                android:layout_gravity="start"
+                android:src="@drawable/arrow_up" />
+            <!-->currency amount<-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="$235.69877"
+                android:textColor="#8F99A4"
+                android:textSize="18dp" />
+            <!-->increase text<-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:text="+8.1%"
+                android:textColor="#3EB203"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <!-->24H change text<-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="5dp"
+            android:padding="5dp"
+            android:text="24H Change"
+            android:textAllCaps="true"
+            android:textColor="#C5C2BF"
+            android:textSize="18dp" />
+
+
+        <!-->line chart <-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/line_chirt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.github.mikephil.charting.charts.LineChart>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+
+            android:orientation="horizontal">
+            <!-->1h button <-->
+            <LinearLayout
+                android:id="@+id/btn_hour"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvhour"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="1H"
+                    android:textColor="#CDCCC8"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+            <!-->1d button <-->
+            <LinearLayout
+                android:id="@+id/btn_day"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/filter_selected"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvday"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="1D"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+            <!-->1w button <-->
+            <LinearLayout
+                android:id="@+id/btn_week"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvweek"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="1W"
+                    android:textColor="#CDCCC8"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+            <!-->1m button <-->
+            <LinearLayout
+                android:id="@+id/btn_month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvmonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="1M"
+                    android:textColor="#CDCCC8"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <!-->MAX button <-->
+            <LinearLayout
+                android:id="@+id/btn_year"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvyear"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="MAX"
+                    android:textColor="#CDCCC8"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <!-->send button <-->
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/login_edittext_style"
+                android:text="Send"
+                android:textColor="#ffffff" />
+            <!-->receive button <-->
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/login_edittext_style"
+                android:text="Receive"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+        <!-->recycler coin list horizontal<-->
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:id="@+id/recycler_coin_horizontal"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</ScrollView>

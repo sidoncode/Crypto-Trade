@@ -1,0 +1,17 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="false">
+
+        <layer-list>
+
+            <item android:drawable="@drawable/round_shapes"></item>
+            <item android:right="5dp">
+
+                <bitmap android:gravity="center_vertical|right" android:src="@drawable/arrow_down" />
+
+            </item>
+
+        </layer-list>
+
+    </item>
+</selector>
