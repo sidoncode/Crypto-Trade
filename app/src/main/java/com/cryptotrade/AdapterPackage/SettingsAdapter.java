@@ -1,31 +1,38 @@
-package com.cryptotrade.AdapterPackage;
+package com.cryptocurrencybestrate.ethereum.AdapterPackage;
 /**
  * all required libraries importation goes here
  */
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.cryptotrade.R;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cryptocurrencybestrate.ethereum.ActivityPackage.SettingsActivity;
+import com.cryptocurrencybestrate.ethereum.R;
+import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;
 
 
-
-
-public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> implements ItemTouchHelperAdapter{
+public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     /**
      * Field instance of all views and variables
      */
     ArrayList<String> coinList;
     Activity activity;
+
+
+
+    String set_cur_val;
+
 
     /**
      * construtctor for getting activity list and activity context
@@ -62,7 +69,24 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
          */
         holder.tvCoinShortName.setText("BTC");
         holder.tvCoinFullName.setText("Bitcoin");
+        holder.mSwitchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                Toast.makeText(activity,"asd" + holder.getAdapterPosition(),Toast.LENGTH_LONG).show();
+                set_cur_val = String.valueOf(holder.getAdapterPosition());
+            }
+        });
     }
+
+    public String getSet_cur_val() {
+        return set_cur_val;
+    }
+
+    public void setSet_cur_val(String set_cur_val) {
+        this.set_cur_val = set_cur_val;
+    }
+
+
 
 
     @Override
@@ -96,6 +120,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
          */
         TextView tvCoinShortName, tvCoinFullName;
         ImageButton btnReOrder;
+        SwitchButton mSwitchButton;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -106,6 +132,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             tvCoinShortName = (TextView) itemView.findViewById(R.id.tv_coin_short_name);
             tvCoinFullName = (TextView) itemView.findViewById(R.id.tv_coin_full_name);
             btnReOrder = (ImageButton) itemView.findViewById(R.id.btn_re_arrange);
+            mSwitchButton = itemView.findViewById(R.id.switch_button);
+
         }
     }
 

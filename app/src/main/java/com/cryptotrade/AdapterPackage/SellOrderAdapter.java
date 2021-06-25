@@ -1,21 +1,20 @@
-package com.cryptotrade.AdapterPackage;
+package com.cryptocurrencybestrate.ethereum.AdapterPackage;
 /**
  * all required libraries importation goes here
  */
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cryptotrade.R;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cryptocurrencybestrate.ethereum.R;
 
 import java.util.ArrayList;
-
-
 
 
 public class SellOrderAdapter extends RecyclerView.Adapter<SellOrderAdapter.ViewHolder> {

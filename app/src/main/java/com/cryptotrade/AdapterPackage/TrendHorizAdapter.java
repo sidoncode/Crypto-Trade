@@ -1,25 +1,25 @@
-package com.cryptotrade.AdapterPackage;
+package com.cryptocurrencybestrate.ethereum.AdapterPackage;
 /**
  * all required libraries importation goes here
  */
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.cryptotrade.ActivityPackage.DiscoverDetailsActivity;
-import com.cryptotrade.R;
+import com.cryptocurrencybestrate.ethereum.ActivityPackage.DiscoverDetailsActivity;
+import com.cryptocurrencybestrate.ethereum.R;
 
 import java.util.ArrayList;
-
 
 
 public class TrendHorizAdapter extends RecyclerView.Adapter<TrendHorizAdapter.ViewHolder> {

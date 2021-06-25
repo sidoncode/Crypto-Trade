@@ -1,24 +1,24 @@
-package com.cryptotrade.AdapterPackage;
+package com.cryptocurrencybestrate.ethereum.AdapterPackage;
 /**
  * all required libraries importation goes here
  */
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.cryptotrade.R;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.cryptocurrencybestrate.ethereum.R;
+
+import com.cryptocurrencybestrate.ethereum.R;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.ArrayList;
-
-
 
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder> {
