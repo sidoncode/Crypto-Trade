@@ -1,19 +1,22 @@
-package com.cryptotrade.FragmentPackage;
+package com.cryptocurrencybestrate.ethereum.FragmentPackage;
 /**
  * all required libraries imported here
  */
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.WalletAdapter;
+import com.cryptocurrencybestrate.ethereum.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -24,8 +27,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
-import com.cryptotrade.R;
-import com.cryptotrade.AdapterPackage.WalletAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
