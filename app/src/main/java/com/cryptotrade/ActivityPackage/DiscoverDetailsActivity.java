@@ -1,15 +1,16 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 /**
  * All required libraries imported here
  */
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.cryptotrade.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.cryptocurrencybestrate.ethereum.R;
 
 public class DiscoverDetailsActivity extends AppCompatActivity {
     /**

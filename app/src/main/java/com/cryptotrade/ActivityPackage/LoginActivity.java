@@ -1,4 +1,4 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 /**
  * all required libraries imported here
  */
@@ -7,14 +7,33 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.cryptotrade.R;
-import com.cryptotrade.FragmentPackage.SignupFragment;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
+import com.cryptocurrencybestrate.ethereum.FragmentPackage.MarketFragment;
+import com.cryptocurrencybestrate.ethereum.FragmentPackage.SignupFragment;
+import com.cryptocurrencybestrate.ethereum.R;
+import com.cryptocurrencybestrate.ethereum.UtilPackage.Utility;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,6 +44,13 @@ public class LoginActivity extends AppCompatActivity {
     public static FragmentManager manager;
     TextView tvForgotPassword;
     Button btnLogin;
+    private  TextView g_signin;
+    FirebaseAuth mAuth;
+    GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 234;
+    private static String  TAG  = "SIDD";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +66,44 @@ public class LoginActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor("#202B3F"));
         }
 
+
+
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseApp.getInstance();
+        FirebaseApp.initializeApp(LoginActivity.this);
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // init google signin //
+        mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
+        // signIn();//
+
+
+
+
+
         /**
          * assigning the support fragment manager for future fragment replacement from any where
          */
         manager = getSupportFragmentManager();
+
+        if(!Utility.getUserFirstName(LoginActivity.this).equals("")){
+            Intent intent = new Intent(this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(!Utility.g_getUserFirstName(LoginActivity.this).equals("")){
+            Intent intent = new Intent(this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         /**
          * Type casting of all views of login screen
          */
@@ -52,6 +112,17 @@ public class LoginActivity extends AppCompatActivity {
 /**
  * click listener of signup text which will redirect to the sign up screen
  */
+
+
+
+        g_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
+
+
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +170,76 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    private void signIn() {
+        //getting the google signin intent
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+
+        //starting the activity for result
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //if the requestCode is the Google Sign In code that we defined at starting
+        if (requestCode == RC_SIGN_IN) {
+
+            //Getting the GoogleSignIn Task
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                //Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                //authenticating with firebase
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        //getting the auth credential
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
+        //Now using firebase we are signing in the user here
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            Toast.makeText(LoginActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();
+
+                            //startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                            Intent i = new Intent(LoginActivity.this,HomeActivity.class);
+                            i.putExtra("user_name",user.getDisplayName());
+                            i.putExtra("user_pic",user.getPhotoUrl());
+                            Utility.g_setUserFirstName(LoginActivity.this,user.getDisplayName());
+                            startActivity(i);
+                            finish();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
+    }
+
+
+
     /**
      * this method will type cast the all views of this screen
      */
@@ -106,6 +247,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup = (Button) findViewById(R.id.btn_signup);
         tvForgotPassword = (TextView) findViewById(R.id.tv_forgot_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
+        g_signin = findViewById(R.id.g_signin);
     }
 
 }

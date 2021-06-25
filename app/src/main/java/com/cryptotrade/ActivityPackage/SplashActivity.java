@@ -1,4 +1,4 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 /**
  * All required libraries imported here
  */
@@ -6,13 +6,16 @@ package com.cryptotrade.ActivityPackage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.cryptotrade.R;
+import com.cryptocurrencybestrate.ethereum.R;
+import com.cryptocurrencybestrate.ethereum.R;
+import com.google.firebase.FirebaseApp;
 
 public class SplashActivity extends AppCompatActivity {
     /**
@@ -32,6 +35,9 @@ public class SplashActivity extends AppCompatActivity {
          * initialising views
          */
       initViews();
+
+        FirebaseApp.initializeApp(this);
+
         /**
          * loading gif progress
          * handler for finish this splash screen after 4 seconds (4000 ms)

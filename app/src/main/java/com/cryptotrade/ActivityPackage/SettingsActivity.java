@@ -1,19 +1,23 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 /**
  * all required libraries imported here
  */
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.cryptotrade.R;
-import com.cryptotrade.AdapterPackage.SettingsAdapter;
-import com.cryptotrade.UtilPackage.SimpleItemTouchHelperCallback;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.SettingsAdapter;
+import com.cryptocurrencybestrate.ethereum.FragmentPackage.MarketFragment;
+import com.cryptocurrencybestrate.ethereum.UtilPackage.SimpleItemTouchHelperCallback;
+import com.cryptocurrencybestrate.ethereum.R;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,9 @@ public class SettingsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ItemTouchHelper mItemTouchHelper;
     ImageButton btnBack;
+
+
+    SettingsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +57,12 @@ public class SettingsActivity extends AppCompatActivity {
         for (int i = 0; i < 10; i++) {
             arrayList.add("BTC");
         }
-        SettingsAdapter adapter = new SettingsAdapter(arrayList, SettingsActivity.this);
+        adapter = new SettingsAdapter(arrayList, SettingsActivity.this);
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
+
 
 
         /**
@@ -66,11 +74,29 @@ public class SettingsActivity extends AppCompatActivity {
                 /**
                  * finishing this screen
                  */
-                SettingsActivity.super.onBackPressed();
+                //SettingsActivity.super.onBackPressed();
+                /**Intent intent = new Intent(SettingsActivity.this, MarketFragment.class);
+                intent.putExtra("val","INR");
+                startActivity(intent);
+                Log.i("val","val");**/
             }
         });
 
+
+
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+        intent.putExtra("val","INR");
+        startActivity(intent);
+        Log.i("val","val");
+        super.onBackPressed();  // optional depending on your needs
+    }
+
+
 
     /**
      * initialize views

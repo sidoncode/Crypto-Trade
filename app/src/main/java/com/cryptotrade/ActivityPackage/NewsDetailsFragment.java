@@ -1,8 +1,7 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -11,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cryptotrade.R;
+import androidx.fragment.app.Fragment;
+
+import com.cryptocurrencybestrate.ethereum.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;

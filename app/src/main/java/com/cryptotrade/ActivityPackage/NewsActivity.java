@@ -1,22 +1,27 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.cryptotrade.AdapterPackage.Models.News;
-import com.cryptotrade.AdapterPackage.NewsAdapter;
-import com.cryptotrade.R;
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.Models.News;
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.NewsAdapter;
+import com.cryptocurrencybestrate.ethereum.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +35,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
     private NewsAdapter adapter;
     private List<News> newsList;
 
+    AdView mAdView;
 
     String BASE_URL = "https://min-api.cryptocompare.com";
 
@@ -39,17 +45,18 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_news);
 
         recyclerView = findViewById(R.id.recycler_view);
-
         newsList = new ArrayList<>();
-
         prepareNews();
-
         adapter = new NewsAdapter(this, newsList);
-
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 

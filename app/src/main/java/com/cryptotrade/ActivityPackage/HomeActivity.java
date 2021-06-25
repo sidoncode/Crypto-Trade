@@ -1,34 +1,70 @@
-package com.cryptotrade.ActivityPackage;
+package com.cryptocurrencybestrate.ethereum.ActivityPackage;
 /**
  * All required libraries imported here
  */
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
-import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.cryptotrade.FragmentPackage.ExchangeFragment;
-import com.cryptotrade.FragmentPackage.MarketFragment;
-import com.cryptotrade.R;
-import com.cryptotrade.UtilPackage.ShiftingRemover;
-import com.cryptotrade.FragmentPackage.WalletFragment;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.CoinHorizAdapter;
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.MarketCoinAdapter;
+import com.cryptocurrencybestrate.ethereum.AdapterPackage.Models.CoinsTickersModel;
+import com.cryptocurrencybestrate.ethereum.FragmentPackage.MarketFragment;
+import com.cryptocurrencybestrate.ethereum.FragmentPackage.WalletFragment;
+import com.cryptocurrencybestrate.ethereum.UtilPackage.ShiftingRemover;
+import com.cryptocurrencybestrate.ethereum.R;
+import com.cryptocurrencybestrate.ethereum.UtilPackage.Utility;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.URI;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -45,6 +81,26 @@ public class HomeActivity extends AppCompatActivity {
     LinearLayout btnLogout;
 
     DrawerLayout drawer;
+    InterstitialAd mInterstitialAd;
+    Spinner mSpinner;
+    String s;
+    TextView username_tv;
+    private CircleImageView image_profile;
+
+
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    final MarketFragment myFragment = new MarketFragment();
+
+    MarketFragment marketFragment1 = new MarketFragment();
+
+
+    private String user_name =null;
+    private Uri user_pic = null;
+    LinearLayout rateus;
+    LinearLayout shareapp;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +110,77 @@ public class HomeActivity extends AppCompatActivity {
          */
         setContentView(R.layout.activity_home);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        try {
+            user= mAuth.getCurrentUser();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString("edttext", "From Activity");
+        MarketFragment fragobj = new MarketFragment();
+        fragobj.setArguments(bundle);
+
+        username_tv = findViewById(R.id.username_tv);
+
+
+        FirebaseApp.initializeApp(HomeActivity.this);
+
+        //user_pic = Uri.parse(getIntent().getStringExtra("user_pic"));
+        try {
+            user_name = getIntent().getStringExtra("user_name");
+            username_tv.setText(user_name);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (user_name.isEmpty()) {
+                Log.i("user_name", "is empty");
+            }
+            if (!user_name.isEmpty()) {
+                username_tv.setText(user_name);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (user_name.isEmpty()) {
+                if (Utility.getUserFirstName(HomeActivity.this).equals("")) {
+                    username_tv.setText("");
+                } else {
+                    username_tv.setText(Utility.getUserFirstName(HomeActivity.this));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if(username_tv.getText().equals("")){
+                username_tv.setText(user.getDisplayName());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
 /**
  * initializing views
  */
         initViews();
+
+
 
 /**
  * click listener of market button
@@ -74,7 +197,13 @@ public class HomeActivity extends AppCompatActivity {
                 /**
                  * opening market screen
                  */
-                navigation.setSelectedItemId(R.id.navigation_market);
+                Bundle bundle = new Bundle();
+                bundle.putString("edttext", "From Activity");
+                MarketFragment fragobj = new MarketFragment();
+                fragobj.setArguments(bundle);
+
+                fragmentTransaction.add(R.id.fragment_container, myFragment).commit();
+
             }
         });
 
@@ -96,7 +225,7 @@ public class HomeActivity extends AppCompatActivity {
                 /**
                  * opening exchange screen
                  */
-                navigation.setSelectedItemId(R.id.navigation_exchange);
+                //navigation.setSelectedItemId(R.id.navigation_exchange);
             }
         });
 
@@ -140,6 +269,26 @@ public class HomeActivity extends AppCompatActivity {
                 /**
                  *  opening discover screen
                  */
+
+                AdRequest adRequest = new AdRequest.Builder().build();
+
+                InterstitialAd.load(HomeActivity.this,"ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("sidd", "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("sidd", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+
                 navigation.setSelectedItemId(R.id.navigation_discover);
             }
         });
@@ -151,9 +300,23 @@ public class HomeActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**
-                 * starting login activity screen
-                 */
+
+                try{
+                    Utility.setUserMobile(HomeActivity.this,"");
+                    Utility.setUserLasstName(HomeActivity.this,"");
+                    Utility.setUserFirstName(HomeActivity.this,"");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                try{
+                    Utility.g_setUserFirstName(HomeActivity.this,"");
+                    Utility.g_setUserLasstName(HomeActivity.this,"");
+                    Utility.g_setUserMobile(HomeActivity.this,"");
+                    FirebaseAuth.getInstance().signOut();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 /**
                  * finishing this activity
@@ -177,7 +340,8 @@ public class HomeActivity extends AppCompatActivity {
                 /**
                  * opening wallet screen
                  */
-                navigation.setSelectedItemId(R.id.navigation_wallet);
+                //navigation.setSelectedItemId(R.id.navigation_wallet);
+
             }
         });
 
@@ -189,11 +353,7 @@ public class HomeActivity extends AppCompatActivity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**
-                 * starting settings screen
-                 */
-                //ActivityOptionsCompat compat = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeActivity.this, linearLayoutToolbar, "toolbar");
-                //startActivity(new Intent(HomeActivity.this, SettingsActivity.class), compat.toBundle());
+
 
             }
         });
@@ -240,14 +400,15 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, NewsActivity.class));
                     return true;
                 case R.id.navigation_market:
-/**
- * opening market screen
- */    /**
-                 * setting title and clearing the animation of settings icon setting alpha 1(visible)
-                 */
-                    tvTitle.setText("Market");
+
+                    tvTitle.setText("Live Coin Rates");
                     btnSettings.clearAnimation();
                     btnSettings.animate().alpha(1);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("edttext", "From Activity");
+                    MarketFragment fragobj = new MarketFragment();
+                    fragobj.setArguments(bundle);
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MarketFragment()).commitAllowingStateLoss();
 
                     return true;
@@ -255,24 +416,19 @@ public class HomeActivity extends AppCompatActivity {
                     /**
                      * opening wallet screen
                      */
-                    /**tvTitle.setText("Wallet");
-                    btnSettings.clearAnimation();
-                    btnSettings.animate().alpha(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commitAllowingStateLoss();**/
+                    /**
 
+                    //tvTitle.setText("Paper Trading");
+                    btnSettings.clearAnimation();
+                    btnSettings.animate().alpha(0);**/
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commitAllowingStateLoss();**/
+                    Toast.makeText(HomeActivity.this,"Coming Soon",Toast.LENGTH_LONG).show();
 
                     return true;
 
                 case R.id.navigation_exchange:
-                    /**
-                     * opening exchange screen
-                     */
-                    tvTitle.setText("Exchange");
-                    btnSettings.clearAnimation();
-                    btnSettings.animate().alpha(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ExchangeFragment()).commitAllowingStateLoss();
-                    //startActivity(new Intent(HomeActivity.this,ExchangeFragment.class));
 
+                    Toast.makeText(HomeActivity.this,"Coming Soon",Toast.LENGTH_LONG).show();
                     return true;
             }
             return false;
@@ -308,6 +464,34 @@ public class HomeActivity extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.bottom_nav);
         btnSettings.clearAnimation();
         btnSettings.animate().alpha(0);
+        image_profile = findViewById(R.id.image_profile);
+        rateus = findViewById(R.id.rateus);
+        shareapp = findViewById(R.id.shareapp);
+
+
+        rateus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+HomeActivity.this.getPackageName())));
+            }
+        });
+
+
+        shareapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int applicationNameId = HomeActivity.this.getApplicationInfo().labelRes;
+                final String appPackageName = HomeActivity.this.getPackageName();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "Crypto Coins");
+                String text = "Install This Application:" + "\n" + "Get Daily Live Prices of Crypto Coins";
+                String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
+                i.putExtra(Intent.EXTRA_TEXT, text + " " + link);
+                startActivity(Intent.createChooser(i, "Share link:"));
+            }
+        });
+
 
         /**
          * removing bottom navigation view's shifting animation
@@ -323,30 +507,56 @@ public class HomeActivity extends AppCompatActivity {
         navigation.setSelectedItemId(R.id.navigation_market);
 
 
-        /**private void api_call(){
-            try {
-                JSONObject jsonBody = new JSONObject();
-                JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, "",jsonBody, response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response+"");
-                        Log.i("response->",jsonObject+"");
-                        String s = jsonObject.getString("name");
-                        Log.i("getas",s);
-                        //pb_loading.setVisibility(View.GONE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }, error -> {
-                    // pb_loading.setVisibility(View.GONE);
-                    error.printStackTrace();
-                });
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-        }**/
-
     }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+        alertDialog.setTitle("AlertDialog");
+
+        String[] items = {"USD","INR","YEN","EURO","ROUB"};
+        int checkedItem = 1;
+        alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        try{
+                            Bundle bundle = new Bundle();
+                            bundle.putString("edttext", "USD");
+                            MarketFragment myFragment = new MarketFragment();
+                            myFragment.setArguments(bundle);
+                            fragmentTransaction.add(R.id.fragment_container, myFragment).commit();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(HomeActivity.this, "Clicked on java", Toast.LENGTH_LONG).show();
+                        break;
+                    case 1:
+                        MarketFragment marketFragment2 = new MarketFragment();
+                        marketFragment2.refresh("INR");
+                        Toast.makeText(HomeActivity.this, "Clicked on android", Toast.LENGTH_LONG).show();
+                        break;
+                    case 2:
+                        MarketFragment marketFragment3 = new MarketFragment();
+                        marketFragment3.refresh("YEN");
+                        Toast.makeText(HomeActivity.this, "Clicked on Data Structures", Toast.LENGTH_LONG).show();
+                        break;
+                    case 3:
+                        Toast.makeText(HomeActivity.this, "Clicked on HTML", Toast.LENGTH_LONG).show();
+                        break;
+                    case 4:
+                        MarketFragment marketFragment4 = new MarketFragment();
+                        marketFragment4.refresh("EURO");
+                        Toast.makeText(HomeActivity.this, "Clicked on CSS", Toast.LENGTH_LONG).show();
+                        break;
+                }
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(true);
+        alert.show();
+    }
+
+
 
 }
