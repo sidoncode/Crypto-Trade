@@ -1,7 +1,135 @@
 package com.cryptocurrencybestrate.ethereum.ActivityPackage;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cryptocurrencybestrate.ethereum.R;
+import com.github.mikephil.charting.charts.LineChart;
+
 /**
  * All required libraries imported here
  */
+
+
+public class CoinDetailActivity extends AppCompatActivity{
+
+
+    RecyclerView recyclerView;
+    ImageButton btnBack;
+    ImageButton btnCross;
+    LineChart chart;
+
+    TextView marketcaprank_tv,marketcap_tv,fullydilutedvalidation_tv,tradingvolume_tv,high_tv,low_tv,availablesupply_tv,totalsupply_tv,
+            alltimehigh_tv;
+
+    TextView alltimelowdata_tv;
+
+
+
+    String marketcaprank = null;
+    String marketcap = null;
+    String fullydilutedvalidation = null;
+    String tradingvolume = null;
+    String high=null;
+    String low=null;
+    String availablesupply=null;
+    String totalsupply=null;
+    String  alltimehigh=null;
+    String sincealltimehigh=null;
+    String current_price = null;
+    String price_change_24h = null;
+    String maxsupply = null;
+    String totalvol = null;
+    String ath = null;
+    String atl = null;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_coin_detail);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_coin_horizontal);
+        btnBack = (ImageButton) findViewById(R.id.btn_back);
+        btnCross = (ImageButton) findViewById(R.id.btn_cross);
+        chart = (LineChart) findViewById(R.id.line_chirt);
+        setSupportActionBar(toolbar);
+
+        marketcap_tv =findViewById(R.id.marketcap_tv);
+        marketcaprank_tv =findViewById(R.id.marketcaprank_tv);
+        fullydilutedvalidation_tv =findViewById(R.id.fullydilutedvalidation_tv);
+        tradingvolume_tv =findViewById(R.id.tradingvolume_tv);
+        high_tv =findViewById(R.id.high_tv);
+        low_tv =findViewById(R.id.low_tv);
+        totalsupply_tv =findViewById(R.id.totalsupply_tv);
+
+        alltimehigh_tv =findViewById(R.id.alltimehigh_tv);
+        alltimelowdata_tv = findViewById(R.id.alltimelowdata_tv);
+
+
+
+        try{
+             current_price = getIntent().getStringExtra("current_price");
+             marketcap = getIntent().getStringExtra("market_cap");
+             marketcaprank = getIntent().getStringExtra("market_cap_rank");
+             fullydilutedvalidation = getIntent().getStringExtra("fully_diluted_valuation");
+             totalvol=getIntent().getStringExtra("total_volume");
+             high=getIntent().getStringExtra("high_24h");
+             low=getIntent().getStringExtra("low_24h");
+             price_change_24h=getIntent().getStringExtra("price_change_24h");
+             totalsupply=getIntent().getStringExtra("total_supply");
+             maxsupply=getIntent().getStringExtra("max_supply");
+             ath=getIntent().getStringExtra("ath");
+             atl=getIntent().getStringExtra("atl");
+
+            Log.i("siddd1",current_price);
+            Log.i("siddd2",marketcap);
+            Log.i("siddd3",marketcaprank);
+            Log.i("siddd4",fullydilutedvalidation);
+            Log.i("siddd5",totalsupply);
+            Log.i("siddd6",high);
+            Log.i("siddd7",low);
+            Log.i("siddd8",price_change_24h);
+            Log.i("siddd9",totalvol);
+            Log.i("siddd10",maxsupply);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+        set_vals();
+
+
+    }
+    public void set_vals(){
+
+        marketcaprank_tv.setText(marketcaprank);
+        marketcap_tv.setText(marketcap);
+        fullydilutedvalidation_tv.setText(fullydilutedvalidation);
+        tradingvolume_tv.setText(totalvol);
+        high_tv.setText(high);
+        low_tv.setText(low);
+        totalsupply_tv.setText(totalsupply);
+        alltimehigh_tv.setText(ath);
+        alltimelowdata_tv.setText(atl);
+
+    }
+
+}
+
+
+
 
 /**
 public class CoinDetailActivity extends AppCompatActivity {
